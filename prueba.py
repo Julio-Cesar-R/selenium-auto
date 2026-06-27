@@ -5,6 +5,7 @@ from selenium.webdriver.support import select
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from constantes import VR_text,VR_text2
 
 #Conxeion a la pagina
 driver=webdriver.Edge()
@@ -17,6 +18,7 @@ conectivity={
 "toggle3":"//*[@id='CybotCookiebotDialogBodyLevelButtonMarketing']",
 }
 
+"""
 connection= False
 time.sleep(5)
 while connection == False:
@@ -36,12 +38,12 @@ while connection == False:
     else:
         print("el ciclo conntinua")
         print(verification)
-
+"""
 #Esperar a que aparezca un texto
 WebDriverWait(driver, 10).until(
     EC.text_to_be_present_in_element(
         (By.TAG_NAME, "body"),
-        "Las cookies de este sitio web se usan para personalizar el contenido y los anuncios, ofrecer funciones de redes sociales y analizar el tráfico. Además, compartimos información sobre el uso que haga del sitio web con nuestros partners de redes sociales, publicidad y análisis web, quienes pueden combinarla con otra información que les haya proporcionado o que hayan recopilado a partir del uso que haya hecho de sus servicios."
+        VR_text2
     )
 )
 print("El texto apareció")    
@@ -55,10 +57,10 @@ print("El texto apareció")
 
 #!------------------------------    
 #Buscar en toda la página
-texto_pagina = driver.find_element(By.TAG_NAME, "body").text.lower()
-
-if "Las cookies de este sitio web se usan para personalizar el contenido y los anuncios, ofrecer funciones de redes sociales y analizar el tráfico. Además, compartimos información sobre el uso que haga del sitio web con nuestros partners de redes sociales, publicidad y análisis web, quienes pueden combinarla con otra información que les haya proporcionado o que hayan recopilado a partir del uso que haya hecho de sus servicios." in texto_pagina:
-    print("Texto encontrado")
-else:
-    print("No encontrado")
+texto_pagina = driver.find_element(By.TAG_NAME, "body").text
+for data in VR_text:
+   if data in texto_pagina:
+       print(f"Texto encontrado")
+   else:
+       print(f"No encontrado")
 #!------------------------------
